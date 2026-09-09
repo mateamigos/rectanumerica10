@@ -26,7 +26,7 @@
             padding: 0;
         }
 
-        /* Fondo general usando dvh para móviles */
+        /* Fondo general adaptado a móviles */
         html, body {
             width: 100%;
             height: 100dvh;
@@ -39,7 +39,7 @@
         }
 
         /* ----------------------------------------------------
-           PANTALLA DE INICIO (ADAPTABLE A MÓVILES)
+           PANTALLA DE INICIO (MODAL)
         ---------------------------------------------------- */
         .welcome-overlay {
             position: fixed;
@@ -71,7 +71,7 @@
             max-width: 600px;
             width: 100%;
             max-height: 92dvh;
-            overflow-y: auto; /* Permite scroll en teléfonos muy pequeños */
+            overflow-y: auto;
             text-align: center;
             animation: cardPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
@@ -224,7 +224,7 @@
             background: linear-gradient(135deg, rgba(50, 25, 8, 0.8), rgba(20, 10, 3, 0.85));
             border: 1.5px solid #b45309;
             border-radius: var(--radius-lg);
-            padding: 6px 10px;
+            padding: 8px 10px;
             text-align: center;
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
         }
@@ -241,9 +241,9 @@
             display: flex;
             justify-content: center;
             gap: 10px;
-            font-size: clamp(0.7rem, 2.2vw, 0.9rem);
+            font-size: clamp(0.75rem, 2.4vw, 0.95rem);
             font-weight: 700;
-            margin-top: 3px;
+            margin-top: 4px;
         }
 
         .step-1 { color: #60a5fa; text-shadow: 0 1px 3px rgba(0,0,0,0.9); }
@@ -253,7 +253,7 @@
         .number-line-container {
             width: 100%;
             flex: 1 1 auto;
-            min-height: 140px;
+            min-height: 160px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -262,7 +262,7 @@
             border-radius: var(--radius-lg);
             border: 1px solid rgba(255,255,255,0.25);
             overflow: hidden;
-            margin: 4px 0;
+            margin: 6px 0;
         }
 
         svg {
@@ -282,53 +282,18 @@
             animation: dinoGlow 1.5s infinite ease-in-out;
         }
 
-        /* Teclado de números adaptable (se distribuye en móvil) */
-        .answers-grid {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap; /* Permite reorganizar los números en pantallas estrechas */
-            gap: clamp(4px, 1.2vw, 8px);
-            width: 100%;
-            max-width: 600px;
-        }
-
-        .num-btn {
-            width: clamp(36px, 8vw, 48px);
-            height: clamp(36px, 8vw, 48px);
-            border-radius: 50%;
-            border: 2px solid #b45309;
-            background: linear-gradient(145deg, #78350f, #451a03);
-            font-size: clamp(0.9rem, 3vw, 1.2rem);
-            font-weight: 800;
-            color: #fef08a;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .num-btn:active:not(:disabled) {
-            transform: scale(0.92);
-        }
-
-        .num-btn:disabled {
-            opacity: 0.35;
-            cursor: not-allowed;
-        }
-
         /* Footer Controls */
         .footer-controls {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            min-height: 40px;
+            min-height: 48px;
             width: 100%;
         }
 
         .feedback-message {
-            font-size: clamp(0.9rem, 3.2vw, 1.3rem);
+            font-size: clamp(0.95rem, 3.4vw, 1.35rem);
             font-weight: 800;
             text-shadow: 0 2px 6px rgba(0,0,0,0.9);
             text-align: center;
@@ -338,8 +303,8 @@
         .feedback-message.incorrect { color: #f87171; }
 
         .next-btn {
-            padding: 8px 20px;
-            font-size: clamp(0.85rem, 3vw, 1.1rem);
+            padding: 10px 24px;
+            font-size: clamp(0.9rem, 3.2vw, 1.15rem);
             font-weight: 800;
             background: linear-gradient(135deg, #22c55e, #16a34a);
             color: white;
@@ -358,7 +323,7 @@
             z-index: 10;
         }
 
-        /* AJUSTES ESPECÍFICOS PARA PANTALLAS PEQUEÑAS (MÓVILES VERTICALES) */
+        /* Ajustes adicionales móviles */
         @media (max-width: 550px) {
             .header-bar {
                 flex-wrap: wrap;
@@ -367,11 +332,6 @@
             h1 { font-size: 1.1rem; }
             .stats-bar { font-size: 0.8rem; }
             .instruction-box { flex-direction: column; gap: 2px; }
-            .num-btn {
-                width: calc(16% - 4px); /* Se ajusta a 6 botones por fila aprox */
-                height: 40px;
-                border-radius: 12px; /* Forma más fácil de pulsar en móvil */
-            }
         }
     </style>
 </head>
@@ -398,7 +358,7 @@
             </div>
             <div class="instruction-item">
                 <div class="step-badge">4</div>
-                <div>¡Toca la piedra final con el resultado correcto para ganar estrellas! ⭐</div>
+                <div>¡Toca la piedra final con la respuesta correcta para ganar estrellas! ⭐</div>
             </div>
         </div>
 
@@ -455,9 +415,6 @@
             </defs>
         </svg>
     </div>
-
-    <!-- Teclado de números (Adaptable) -->
-    <div class="answers-grid" id="answers-grid"></div>
 
     <!-- Footer Controls -->
     <div class="footer-controls">
@@ -577,7 +534,6 @@
             `1️⃣ Toca al dinosaurio 🦖 para dar ${currentOp.num2} paso(s) (${currentOp.op === '+' ? 'adelante ➡️' : 'atrás ⬅️'}).`;
 
         renderNumberLine();
-        enableAnswerButtons(true);
     }
 
     function makeDinoStep() {
@@ -599,7 +555,6 @@
     function submitAnswer(selectedNum) {
         if (isFinished) return;
         isFinished = true;
-        enableAnswerButtons(false);
 
         const feedback = document.getElementById('feedback');
 
@@ -616,7 +571,7 @@
             document.getElementById('score').textContent = score;
             document.getElementById('streak').textContent = streak;
         } else {
-            feedback.textContent = `¡Casi! Elegiste el ${selectedNum}, el resultado es ${currentOp.result}.`;
+            feedback.textContent = `¡Casi! Elegiste la piedra ${selectedNum}, el resultado es ${currentOp.result}.`;
             feedback.className = 'feedback-message incorrect';
             
             playErrorSound();
@@ -775,23 +730,6 @@
         svg.appendChild(dinoGroup);
     }
 
-    // --- TECLADO DE NÚMEROS INFERIOR ---
-    function createAnswerButtons() {
-        const grid = document.getElementById('answers-grid');
-        grid.innerHTML = '';
-        for (let i = 0; i <= 10; i++) {
-            const btn = document.createElement('button');
-            btn.className = 'num-btn';
-            btn.textContent = i;
-            btn.onclick = () => submitAnswer(i);
-            grid.appendChild(btn);
-        }
-    }
-
-    function enableAnswerButtons(enable) {
-        document.querySelectorAll('.num-btn').forEach(btn => btn.disabled = !enable);
-    }
-
     // --- EFECTO CONFETI ---
     function launchConfetti() {
         const canvas = document.getElementById('confetti');
@@ -839,7 +777,6 @@
 
     // INICIALIZACIÓN
     window.onload = () => {
-        createAnswerButtons();
         generateNewProblem();
     };
 </script>
