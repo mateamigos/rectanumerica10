@@ -2,32 +2,34 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>MateAventuras - El Camino de la Montaña</title>
     <style>
         :root {
             --primary-gold: #fef08a;
             --primary-green: #22c55e;
             --primary-green-dark: #15803d;
-            --glass-bg: rgba(15, 23, 42, 0.28); /* Fondo mucho más claro para ver la montaña */
+            --glass-bg: rgba(15, 23, 42, 0.28);
             --glass-border: rgba(255, 255, 255, 0.35);
-            --radius-xl: 32px;
-            --radius-lg: 22px;
+            --radius-xl: 28px;
+            --radius-lg: 18px;
             --radius-pill: 50px;
         }
 
         * {
             box-sizing: border-box;
             user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation; /* Evita zoom molesto al tocar rápido en el móvil */
             font-family: 'Segoe UI', Roboto, -apple-system, sans-serif;
             margin: 0;
             padding: 0;
         }
 
-        /* Fondo general de la montaña */
+        /* Fondo general usando dvh para móviles */
         html, body {
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100dvh;
             overflow: hidden;
             background: url('fondo.jpg') center center / cover no-repeat fixed;
             display: flex;
@@ -37,21 +39,21 @@
         }
 
         /* ----------------------------------------------------
-           PANTALLA DE INICIO (MODAL BIENVENIDA)
+           PANTALLA DE INICIO (ADAPTABLE A MÓVILES)
         ---------------------------------------------------- */
         .welcome-overlay {
-            position: absolute;
+            position: fixed;
             top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(8, 15, 8, 0.65);
+            width: 100%; height: 100dvh;
+            background: rgba(8, 15, 8, 0.7);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             z-index: 100;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
-            transition: opacity 0.4s ease, visibility 0.4s ease;
+            padding: 12px;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
         }
 
         .welcome-overlay.hidden {
@@ -61,45 +63,43 @@
         }
 
         .welcome-card {
-            background: linear-gradient(145deg, rgba(30, 41, 59, 0.88), rgba(15, 23, 42, 0.92));
-            border: 3px solid rgba(255, 255, 255, 0.35);
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.92), rgba(15, 23, 42, 0.95));
+            border: 2px solid rgba(255, 255, 255, 0.35);
             border-radius: var(--radius-xl);
-            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8), 0 0 30px rgba(34, 197, 94, 0.3);
-            padding: clamp(20px, 4vh, 35px) clamp(20px, 4vw, 40px);
-            max-width: 650px;
-            width: 95%;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 25px rgba(34, 197, 94, 0.3);
+            padding: clamp(16px, 3vh, 30px) clamp(14px, 3vw, 35px);
+            max-width: 600px;
+            width: 100%;
+            max-height: 92dvh;
+            overflow-y: auto; /* Permite scroll en teléfonos muy pequeños */
             text-align: center;
-            animation: cardPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: cardPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         @keyframes cardPop {
-            0% { transform: scale(0.8); opacity: 0; }
+            0% { transform: scale(0.85); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
 
         .welcome-title {
-            font-size: clamp(1.4rem, 3.8vh, 2.2rem);
+            font-size: clamp(1.2rem, 4.5vw, 2.1rem);
             color: var(--primary-gold);
-            text-shadow: 0 3px 10px rgba(0,0,0,0.9);
-            margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.9);
+            margin-bottom: 4px;
         }
 
         .welcome-subtitle {
-            font-size: clamp(0.85rem, 2vh, 1.05rem);
+            font-size: clamp(0.8rem, 3vw, 1rem);
             color: #cbd5e1;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             font-weight: 500;
         }
 
         .instructions-container {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-bottom: 25px;
+            gap: 10px;
+            margin-bottom: 20px;
             text-align: left;
         }
 
@@ -107,18 +107,18 @@
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: var(--radius-lg);
-            padding: 10px 16px;
+            padding: 8px 12px;
             display: flex;
             align-items: center;
-            gap: 14px;
-            font-size: clamp(0.85rem, 2vh, 1rem);
+            gap: 12px;
+            font-size: clamp(0.8rem, 2.8vw, 0.95rem);
             color: #f1f5f9;
         }
 
         .step-badge {
-            width: 36px;
-            height: 36px;
-            min-width: 36px;
+            width: 32px;
+            height: 32px;
+            min-width: 32px;
             border-radius: 50%;
             background: linear-gradient(135deg, #22c55e, #15803d);
             border: 2px solid #86efac;
@@ -127,8 +127,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.1rem;
-            box-shadow: 0 4px 10px rgba(34, 197, 94, 0.4);
+            font-size: 1rem;
         }
 
         .start-btn {
@@ -136,146 +135,134 @@
             color: white;
             border: 2px solid #86efac;
             border-radius: var(--radius-pill);
-            padding: 12px 36px;
-            font-size: clamp(1.1rem, 2.5vh, 1.3rem);
+            padding: 10px 28px;
+            font-size: clamp(1rem, 3.5vw, 1.25rem);
             font-weight: 800;
             cursor: pointer;
-            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.5);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .start-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 12px 30px rgba(34, 197, 94, 0.7);
+            box-shadow: 0 6px 20px rgba(34, 197, 94, 0.5);
+            width: 100%;
+            max-width: 320px;
         }
 
         /* ----------------------------------------------------
-           CONTENEDOR PRINCIPAL DEL JUEGO (RECUADRO CLARO Y TRANSPARENTE)
+           CONTENEDOR PRINCIPAL DEL JUEGO
         ---------------------------------------------------- */
         .game-container {
             width: 98vw;
-            height: 96vh;
+            height: 96dvh;
             max-width: 1100px;
-            max-height: 96vh;
-            background: var(--glass-bg); /* Súper transparente */
-            border: 2px solid var(--glass-border);
+            background: var(--glass-bg);
+            border: 1.5px solid var(--glass-border);
             border-radius: var(--radius-xl);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(5px); /* Desenfoque suave para que destaque la montaña */
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            padding: 1.2vh 2vw;
+            padding: clamp(6px, 1.5vh, 12px) clamp(8px, 1.5vw, 16px);
             position: relative;
         }
 
-        /* Header */
+        /* Header Adaptable */
         .header-bar {
             width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 10px;
+            gap: 6px;
         }
 
         h1 {
-            font-size: clamp(1.1rem, 2.8vh, 1.7rem);
+            font-size: clamp(1rem, 3.5vw, 1.6rem);
             color: var(--primary-gold);
-            text-shadow: 0 3px 10px rgba(0,0,0,0.9);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.9);
+            white-space: nowrap;
         }
 
         .mode-selector {
             display: flex;
-            gap: 8px;
-            background: rgba(0, 0, 0, 0.35);
-            padding: 4px;
+            gap: 4px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 3px;
             border-radius: var(--radius-pill);
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .mode-btn {
-            padding: 0.5vh 1.2vw;
+            padding: 4px 10px;
             border: none;
             border-radius: var(--radius-pill);
             background: transparent;
             color: #f3f4f6;
             font-weight: bold;
-            font-size: clamp(0.75rem, 1.8vh, 0.95rem);
+            font-size: clamp(0.7rem, 2.2vw, 0.9rem);
             cursor: pointer;
-            transition: all 0.25s ease;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
         }
 
         .mode-btn.active {
             background: linear-gradient(135deg, #22c55e, #15803d);
             color: white;
-            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.5);
         }
 
         .stats-bar {
             display: flex;
-            gap: 15px;
+            gap: 10px;
             background: rgba(0,0,0,0.45);
-            padding: 0.6vh 1.2vw;
+            padding: 4px 10px;
             border-radius: var(--radius-pill);
-            font-size: clamp(0.85rem, 2vh, 1.05rem);
+            font-size: clamp(0.75rem, 2.5vw, 0.95rem);
             font-weight: bold;
             border: 1px solid rgba(255,255,255,0.25);
-            text-shadow: 0 2px 4px rgba(0,0,0,0.9);
+            white-space: nowrap;
         }
 
         /* Tarjeta de Operación */
         .operation-card {
             width: 100%;
-            background: linear-gradient(135deg, rgba(50, 25, 8, 0.75), rgba(20, 10, 3, 0.82));
-            border: 2px solid #b45309;
+            background: linear-gradient(135deg, rgba(50, 25, 8, 0.8), rgba(20, 10, 3, 0.85));
+            border: 1.5px solid #b45309;
             border-radius: var(--radius-lg);
-            padding: 0.8vh 1vw;
+            padding: 6px 10px;
             text-align: center;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-            backdrop-filter: blur(4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
         }
 
         .operation-text {
-            font-size: clamp(2.2rem, 5.2vh, 3.4rem);
+            font-size: clamp(1.8rem, 6vh, 3.2rem);
             font-weight: 900;
-            letter-spacing: 3px;
             color: #fef08a;
-            text-shadow: 0 3px 8px rgba(0,0,0,0.9);
-            line-height: 1.1;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.9);
+            line-height: 1;
         }
 
         .instruction-box {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            font-size: clamp(0.75rem, 1.8vh, 0.95rem);
+            gap: 10px;
+            font-size: clamp(0.7rem, 2.2vw, 0.9rem);
             font-weight: 700;
-            margin-top: 2px;
+            margin-top: 3px;
         }
 
-        .step-1 { color: #60a5fa; text-shadow: 0 2px 4px rgba(0,0,0,0.9); }
-        .step-2 { color: #4ade80; text-shadow: 0 2px 4px rgba(0,0,0,0.9); }
+        .step-1 { color: #60a5fa; text-shadow: 0 1px 3px rgba(0,0,0,0.9); }
+        .step-2 { color: #4ade80; text-shadow: 0 1px 3px rgba(0,0,0,0.9); }
 
-        /* Contenedor del Escenario SÚPER CLARO */
+        /* Contenedor del Escenario SVG */
         .number-line-container {
             width: 100%;
             flex: 1 1 auto;
-            max-height: 48vh;
+            min-height: 140px;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            background: rgba(255, 255, 255, 0.12); /* Súper transparente para ver la montaña */
+            background: rgba(255, 255, 255, 0.12);
             border-radius: var(--radius-lg);
-            border: 1.5px solid rgba(255,255,255,0.3);
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.25);
             overflow: hidden;
+            margin: 4px 0;
         }
 
         svg {
@@ -286,8 +273,8 @@
 
         /* Animación para resaltar al dinosaurio */
         @keyframes dinoGlow {
-            0%, 100% { filter: drop-shadow(0 0 8px rgba(34, 197, 94, 0.9)); transform: translateY(0); }
-            50% { filter: drop-shadow(0 0 18px rgba(250, 204, 21, 1)); transform: translateY(-5px); }
+            0%, 100% { filter: drop-shadow(0 0 6px rgba(34, 197, 94, 0.9)); transform: translateY(0); }
+            50% { filter: drop-shadow(0 0 14px rgba(250, 204, 21, 1)); transform: translateY(-3px); }
         }
 
         .dino-interactive {
@@ -295,37 +282,34 @@
             animation: dinoGlow 1.5s infinite ease-in-out;
         }
 
-        /* Teclado de números curvo */
+        /* Teclado de números adaptable (se distribuye en móvil) */
         .answers-grid {
             display: flex;
             justify-content: center;
-            gap: clamp(4px, 1vw, 10px);
+            flex-wrap: wrap; /* Permite reorganizar los números en pantallas estrechas */
+            gap: clamp(4px, 1.2vw, 8px);
             width: 100%;
+            max-width: 600px;
         }
 
         .num-btn {
-            width: clamp(32px, 5.5vh, 52px);
-            height: clamp(32px, 5.5vh, 52px);
+            width: clamp(36px, 8vw, 48px);
+            height: clamp(36px, 8vw, 48px);
             border-radius: 50%;
             border: 2px solid #b45309;
             background: linear-gradient(145deg, #78350f, #451a03);
-            font-size: clamp(0.9rem, 2.2vh, 1.3rem);
+            font-size: clamp(0.9rem, 3vw, 1.2rem);
             font-weight: 800;
             color: #fef08a;
             cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .num-btn:hover:not(:disabled) {
-            transform: translateY(-3px) scale(1.12);
-            border-color: #86efac;
-            background: linear-gradient(145deg, #15803d, #166534);
-            color: #ffffff;
-            box-shadow: 0 0 18px rgba(34, 197, 94, 0.8);
+        .num-btn:active:not(:disabled) {
+            transform: scale(0.92);
         }
 
         .num-btn:disabled {
@@ -338,37 +322,32 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
-            min-height: 5.5vh;
+            gap: 10px;
+            min-height: 40px;
             width: 100%;
         }
 
         .feedback-message {
-            font-size: clamp(1rem, 2.6vh, 1.5rem);
+            font-size: clamp(0.9rem, 3.2vw, 1.3rem);
             font-weight: 800;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.9);
+            text-shadow: 0 2px 6px rgba(0,0,0,0.9);
+            text-align: center;
         }
 
         .feedback-message.correct { color: #4ade80; }
         .feedback-message.incorrect { color: #f87171; }
 
         .next-btn {
-            padding: 0.8vh 2.2vw;
-            font-size: clamp(0.9rem, 2.2vh, 1.2rem);
+            padding: 8px 20px;
+            font-size: clamp(0.85rem, 3vw, 1.1rem);
             font-weight: 800;
             background: linear-gradient(135deg, #22c55e, #16a34a);
             color: white;
             border: 2px solid #86efac;
             border-radius: var(--radius-pill);
             cursor: pointer;
-            box-shadow: 0 6px 20px rgba(34, 197, 94, 0.5);
+            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.5);
             display: none;
-            transition: transform 0.2s;
-        }
-
-        .next-btn:hover {
-            transform: scale(1.06);
-            background: linear-gradient(135deg, #16a34a, #15803d);
         }
 
         canvas#confetti {
@@ -378,11 +357,27 @@
             pointer-events: none;
             z-index: 10;
         }
+
+        /* AJUSTES ESPECÍFICOS PARA PANTALLAS PEQUEÑAS (MÓVILES VERTICALES) */
+        @media (max-width: 550px) {
+            .header-bar {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            h1 { font-size: 1.1rem; }
+            .stats-bar { font-size: 0.8rem; }
+            .instruction-box { flex-direction: column; gap: 2px; }
+            .num-btn {
+                width: calc(16% - 4px); /* Se ajusta a 6 botones por fila aprox */
+                height: 40px;
+                border-radius: 12px; /* Forma más fácil de pulsar en móvil */
+            }
+        }
     </style>
 </head>
 <body>
 
-<!-- PANTALLA DE INICIO (MODAL) -->
+<!-- PANTALLA DE INICIO (MODAL BIENVENIDA) -->
 <div class="welcome-overlay" id="welcome-screen">
     <div class="welcome-card">
         <h2 class="welcome-title">🦖 El Camino de la Montaña</h2>
@@ -399,11 +394,11 @@
             </div>
             <div class="instruction-item">
                 <div class="step-badge">3</div>
-                <div><b>Toca al dinosaurio 🦖</b> para hacerlo dar los pasos correspondientes (<b>4 pasos</b>).</div>
+                <div><b>Toca al dinosaurio 🦖</b> para dar los pasos (<b>4 pasos</b>).</div>
             </div>
             <div class="instruction-item">
                 <div class="step-badge">4</div>
-                <div>¡Haz clic en la piedra final con el resultado correcto para ganar estrellas! ⭐</div>
+                <div>¡Toca la piedra final con el resultado correcto para ganar estrellas! ⭐</div>
             </div>
         </div>
 
@@ -445,25 +440,23 @@
         <svg id="number-line-svg" viewBox="0 0 900 230" preserveAspectRatio="xMidYMid meet">
             <defs>
                 <filter id="shadow3d" x="-20%" y="-20%" width="140%" height="140%">
-                    <feDropShadow dx="0" dy="6" stdDeviation="4" flood-color="#000000" flood-opacity="0.8"/>
+                    <feDropShadow dx="0" dy="5" stdDeviation="3" flood-color="#000000" flood-opacity="0.8"/>
                 </filter>
                 
-                <!-- Halo dorado para la piedra de inicio -->
                 <filter id="goldGlow" x="-40%" y="-40%" width="180%" height="180%">
                     <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#fef08a" flood-opacity="1"/>
-                    <feDropShadow dx="0" dy="0" stdDeviation="12" flood-color="#eab308" flood-opacity="0.8"/>
+                    <feDropShadow dx="0" dy="0" stdDeviation="10" flood-color="#eab308" flood-opacity="0.8"/>
                 </filter>
 
-                <!-- Halo verde para la piedra alcanzada -->
                 <filter id="greenGlow" x="-40%" y="-40%" width="180%" height="180%">
                     <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#86efac" flood-opacity="1"/>
-                    <feDropShadow dx="0" dy="0" stdDeviation="12" flood-color="#22c55e" flood-opacity="0.8"/>
+                    <feDropShadow dx="0" dy="0" stdDeviation="10" flood-color="#22c55e" flood-opacity="0.8"/>
                 </filter>
             </defs>
         </svg>
     </div>
 
-    <!-- Teclado de números -->
+    <!-- Teclado de números (Adaptable) -->
     <div class="answers-grid" id="answers-grid"></div>
 
     <!-- Footer Controls -->
@@ -623,7 +616,7 @@
             document.getElementById('score').textContent = score;
             document.getElementById('streak').textContent = streak;
         } else {
-            feedback.textContent = `¡Casi! Elegiste el ${selectedNum}, pero el resultado es ${currentOp.result}.`;
+            feedback.textContent = `¡Casi! Elegiste el ${selectedNum}, el resultado es ${currentOp.result}.`;
             feedback.className = 'feedback-message incorrect';
             
             playErrorSound();
@@ -640,7 +633,7 @@
         return startX + num * stepWidth;
     }
 
-    // --- DIBUJO DEL ESCENARIO SVG CON PIEDRAS REALES Y NÚMEROS CLAROS ---
+    // --- DIBUJO DEL ESCENARIO SVG ---
     function renderNumberLine() {
         const svg = document.getElementById('number-line-svg');
         svg.innerHTML = svg.querySelector('defs').outerHTML; 
@@ -665,11 +658,10 @@
         pathTexture.setAttribute('stroke-linecap', 'round');
         svg.appendChild(pathTexture);
 
-        // 2. Rocas Reales con la imagen facilitada + Números con contorno de alta visibilidad
+        // 2. Rocas con la imagen del usuario + Números en alta visibilidad
         for (let i = 0; i <= 10; i++) {
             const x = getXPos(i);
 
-            // Sombra ovalada bajo la piedra
             const rockShadow = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
             rockShadow.setAttribute('cx', x);
             rockShadow.setAttribute('cy', lineY + 34);
@@ -678,19 +670,16 @@
             rockShadow.setAttribute('fill', 'rgba(0,0,0,0.65)');
             svg.appendChild(rockShadow);
 
-            // Grupo interactivo para la piedra
             const rockGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
             rockGroup.style.cursor = isFinished ? 'default' : 'pointer';
             rockGroup.onclick = () => submitAnswer(i);
 
-            // Filtro de resplandor para destacar la piedra activa
             if (i === currentOp.num1) {
                 rockGroup.setAttribute('filter', 'url(#goldGlow)');
             } else if (i === currentPos && jumpsMade > 0) {
                 rockGroup.setAttribute('filter', 'url(#greenGlow)');
             }
 
-            // Imagen de la piedra con musgo facilitada por el usuario
             const stoneImg = document.createElementNS('http://www.w3.org/2000/svg', 'image');
             stoneImg.setAttribute('href', 'piedra.png');
             stoneImg.setAttribute('x', x - 32);
@@ -701,7 +690,6 @@
             stoneImg.setAttribute('onerror', "this.setAttribute('href', 'piedra.jpg'); this.onerror=null;");
             rockGroup.appendChild(stoneImg);
 
-            // NÚMERO SUPER CLARO (Letra blanca con borde negro grueso de alto contraste)
             const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
             text.setAttribute('x', x);
             text.setAttribute('y', lineY + 31);
