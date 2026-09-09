@@ -9,9 +9,8 @@
             --primary-gold: #fef08a;
             --primary-green: #22c55e;
             --primary-green-dark: #15803d;
-            --accent-orange: #f97316;
-            --glass-bg: rgba(15, 23, 42, 0.55);
-            --glass-border: rgba(255, 255, 255, 0.25);
+            --glass-bg: rgba(15, 23, 42, 0.28); /* Fondo mucho más claro para ver la montaña */
+            --glass-border: rgba(255, 255, 255, 0.35);
             --radius-xl: 32px;
             --radius-lg: 22px;
             --radius-pill: 50px;
@@ -25,7 +24,7 @@
             padding: 0;
         }
 
-        /* Fondo de la pantalla con la imagen de la montaña */
+        /* Fondo general de la montaña */
         html, body {
             width: 100vw;
             height: 100vh;
@@ -44,9 +43,9 @@
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(8, 15, 8, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(8, 15, 8, 0.65);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             z-index: 100;
             display: flex;
             align-items: center;
@@ -62,8 +61,8 @@
         }
 
         .welcome-card {
-            background: linear-gradient(145deg, rgba(30, 41, 59, 0.92), rgba(15, 23, 42, 0.96));
-            border: 3px solid rgba(255, 255, 255, 0.3);
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.88), rgba(15, 23, 42, 0.92));
+            border: 3px solid rgba(255, 255, 255, 0.35);
             border-radius: var(--radius-xl);
             box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8), 0 0 30px rgba(34, 197, 94, 0.3);
             padding: clamp(20px, 4vh, 35px) clamp(20px, 4vw, 40px);
@@ -81,7 +80,7 @@
         .welcome-title {
             font-size: clamp(1.4rem, 3.8vh, 2.2rem);
             color: var(--primary-gold);
-            text-shadow: 0 3px 10px rgba(0,0,0,0.8);
+            text-shadow: 0 3px 10px rgba(0,0,0,0.9);
             margin-bottom: 6px;
             display: flex;
             align-items: center;
@@ -105,8 +104,8 @@
         }
 
         .instruction-item {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: var(--radius-lg);
             padding: 10px 16px;
             display: flex;
@@ -151,19 +150,19 @@
         }
 
         /* ----------------------------------------------------
-           CONTENEDOR PRINCIPAL DEL JUEGO (DISEÑO CURVO)
+           CONTENEDOR PRINCIPAL DEL JUEGO (RECUADRO CLARO Y TRANSPARENTE)
         ---------------------------------------------------- */
         .game-container {
             width: 98vw;
             height: 96vh;
             max-width: 1100px;
             max-height: 96vh;
-            background: var(--glass-bg);
+            background: var(--glass-bg); /* Súper transparente */
             border: 2px solid var(--glass-border);
             border-radius: var(--radius-xl);
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px); /* Desenfoque suave para que destaque la montaña */
+            -webkit-backdrop-filter: blur(5px);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -172,7 +171,7 @@
             position: relative;
         }
 
-        /* Header con curvas finas */
+        /* Header */
         .header-bar {
             width: 100%;
             display: flex;
@@ -193,10 +192,10 @@
         .mode-selector {
             display: flex;
             gap: 8px;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.35);
             padding: 4px;
             border-radius: var(--radius-pill);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .mode-btn {
@@ -204,11 +203,12 @@
             border: none;
             border-radius: var(--radius-pill);
             background: transparent;
-            color: #d1d5db;
+            color: #f3f4f6;
             font-weight: bold;
             font-size: clamp(0.75rem, 1.8vh, 0.95rem);
             cursor: pointer;
             transition: all 0.25s ease;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
         }
 
         .mode-btn.active {
@@ -220,25 +220,25 @@
         .stats-bar {
             display: flex;
             gap: 15px;
-            background: rgba(0,0,0,0.4);
+            background: rgba(0,0,0,0.45);
             padding: 0.6vh 1.2vw;
             border-radius: var(--radius-pill);
             font-size: clamp(0.85rem, 2vh, 1.05rem);
             font-weight: bold;
-            border: 1px solid rgba(255,255,255,0.2);
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            border: 1px solid rgba(255,255,255,0.25);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.9);
         }
 
-        /* Tarjeta Curva de Operación */
+        /* Tarjeta de Operación */
         .operation-card {
             width: 100%;
-            background: linear-gradient(135deg, rgba(67, 34, 12, 0.8), rgba(30, 15, 5, 0.85));
+            background: linear-gradient(135deg, rgba(50, 25, 8, 0.75), rgba(20, 10, 3, 0.82));
             border: 2px solid #b45309;
             border-radius: var(--radius-lg);
             padding: 0.8vh 1vw;
             text-align: center;
             box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-            backdrop-filter: blur(6px);
+            backdrop-filter: blur(4px);
         }
 
         .operation-text {
@@ -259,10 +259,10 @@
             margin-top: 2px;
         }
 
-        .step-1 { color: #60a5fa; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
-        .step-2 { color: #4ade80; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
+        .step-1 { color: #60a5fa; text-shadow: 0 2px 4px rgba(0,0,0,0.9); }
+        .step-2 { color: #4ade80; text-shadow: 0 2px 4px rgba(0,0,0,0.9); }
 
-        /* Contenedor del Escenario integrado */
+        /* Contenedor del Escenario SÚPER CLARO */
         .number-line-container {
             width: 100%;
             flex: 1 1 auto;
@@ -271,10 +271,10 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            background: rgba(0, 0, 0, 0.22);
+            background: rgba(255, 255, 255, 0.12); /* Súper transparente para ver la montaña */
             border-radius: var(--radius-lg);
-            border: 1px solid rgba(255,255,255,0.2);
-            box-shadow: inset 0 0 25px rgba(0,0,0,0.5);
+            border: 1.5px solid rgba(255,255,255,0.3);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
             overflow: hidden;
         }
 
@@ -333,7 +333,7 @@
             cursor: not-allowed;
         }
 
-        /* Mensajes de resultado y botones */
+        /* Footer Controls */
         .footer-controls {
             display: flex;
             align-items: center;
@@ -440,7 +440,7 @@
         </div>
     </div>
 
-    <!-- Escenario SVG con Sendero Curvo -->
+    <!-- Escenario SVG con Sendero y Piedras Reales -->
     <div class="number-line-container">
         <svg id="number-line-svg" viewBox="0 0 900 230" preserveAspectRatio="xMidYMid meet">
             <defs>
@@ -448,17 +448,17 @@
                     <feDropShadow dx="0" dy="6" stdDeviation="4" flood-color="#000000" flood-opacity="0.8"/>
                 </filter>
                 
-                <linearGradient id="stoneGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stop-color="#ffffff"/>
-                    <stop offset="50%" stop-color="#9ca3af"/>
-                    <stop offset="100%" stop-color="#374151"/>
-                </linearGradient>
+                <!-- Halo dorado para la piedra de inicio -->
+                <filter id="goldGlow" x="-40%" y="-40%" width="180%" height="180%">
+                    <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#fef08a" flood-opacity="1"/>
+                    <feDropShadow dx="0" dy="0" stdDeviation="12" flood-color="#eab308" flood-opacity="0.8"/>
+                </filter>
 
-                <linearGradient id="stoneActiveGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stop-color="#fef08a"/>
-                    <stop offset="50%" stop-color="#eab308"/>
-                    <stop offset="100%" stop-color="#854d0e"/>
-                </linearGradient>
+                <!-- Halo verde para la piedra alcanzada -->
+                <filter id="greenGlow" x="-40%" y="-40%" width="180%" height="180%">
+                    <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#86efac" flood-opacity="1"/>
+                    <feDropShadow dx="0" dy="0" stdDeviation="12" flood-color="#22c55e" flood-opacity="0.8"/>
+                </filter>
             </defs>
         </svg>
     </div>
@@ -627,7 +627,7 @@
             feedback.className = 'feedback-message incorrect';
             
             playErrorSound();
-            speakText("¡Casi! Inténtalo de nuevo en el siguiente nivel.");
+            speakText("¡Casi! Inténtalo de nuevo.");
             streak = 0;
             document.getElementById('streak').textContent = streak;
         }
@@ -640,19 +640,19 @@
         return startX + num * stepWidth;
     }
 
-    // --- DIBUJO DEL ESCENARIO SVG ---
+    // --- DIBUJO DEL ESCENARIO SVG CON PIEDRAS REALES Y NÚMEROS CLAROS ---
     function renderNumberLine() {
         const svg = document.getElementById('number-line-svg');
         svg.innerHTML = svg.querySelector('defs').outerHTML; 
 
-        // 1. Sendero Curvo
+        // 1. Sendero de tierra
         const pathBg = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        const dPath = `M 30,${lineY + 5} Q 450,${lineY + 15} 870,${lineY + 5}`;
+        const dPath = `M 30,${lineY + 12} Q 450,${lineY + 22} 870,${lineY + 12}`;
         
         pathBg.setAttribute('d', dPath);
         pathBg.setAttribute('fill', 'none');
-        pathBg.setAttribute('stroke', '#78350f');
-        pathBg.setAttribute('stroke-width', '28');
+        pathBg.setAttribute('stroke', '#6b3006');
+        pathBg.setAttribute('stroke-width', '26');
         pathBg.setAttribute('stroke-linecap', 'round');
         pathBg.setAttribute('filter', 'url(#shadow3d)');
         svg.appendChild(pathBg);
@@ -661,56 +661,62 @@
         pathTexture.setAttribute('d', dPath);
         pathTexture.setAttribute('fill', 'none');
         pathTexture.setAttribute('stroke', '#d97706');
-        pathTexture.setAttribute('stroke-width', '20');
+        pathTexture.setAttribute('stroke-width', '18');
         pathTexture.setAttribute('stroke-linecap', 'round');
         svg.appendChild(pathTexture);
 
-        // 2. Rocas 3D con Números
+        // 2. Rocas Reales con la imagen facilitada + Números con contorno de alta visibilidad
         for (let i = 0; i <= 10; i++) {
             const x = getXPos(i);
 
+            // Sombra ovalada bajo la piedra
             const rockShadow = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
             rockShadow.setAttribute('cx', x);
-            rockShadow.setAttribute('cy', lineY + 32);
-            rockShadow.setAttribute('rx', '18');
-            rockShadow.setAttribute('ry', '8');
-            rockShadow.setAttribute('fill', 'rgba(0,0,0,0.6)');
+            rockShadow.setAttribute('cy', lineY + 34);
+            rockShadow.setAttribute('rx', '25');
+            rockShadow.setAttribute('ry', '9');
+            rockShadow.setAttribute('fill', 'rgba(0,0,0,0.65)');
             svg.appendChild(rockShadow);
 
-            const rock = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-            rock.setAttribute('cx', x);
-            rock.setAttribute('cy', lineY + 28);
-            rock.setAttribute('r', '17');
-            
-            let grad = 'url(#stoneGrad)';
-            let stroke = '#1f2937';
+            // Grupo interactivo para la piedra
+            const rockGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            rockGroup.style.cursor = isFinished ? 'default' : 'pointer';
+            rockGroup.onclick = () => submitAnswer(i);
 
+            // Filtro de resplandor para destacar la piedra activa
             if (i === currentOp.num1) {
-                grad = 'url(#stoneActiveGrad)';
-                stroke = '#b45309';
-            }
-            if (i === currentPos && jumpsMade > 0) {
-                stroke = '#22c55e';
+                rockGroup.setAttribute('filter', 'url(#goldGlow)');
+            } else if (i === currentPos && jumpsMade > 0) {
+                rockGroup.setAttribute('filter', 'url(#greenGlow)');
             }
 
-            rock.setAttribute('fill', grad);
-            rock.setAttribute('stroke', stroke);
-            rock.setAttribute('stroke-width', '2.5');
-            rock.style.cursor = isFinished ? 'default' : 'pointer';
-            rock.onclick = () => submitAnswer(i);
-            svg.appendChild(rock);
+            // Imagen de la piedra con musgo facilitada por el usuario
+            const stoneImg = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+            stoneImg.setAttribute('href', 'piedra.png');
+            stoneImg.setAttribute('x', x - 32);
+            stoneImg.setAttribute('y', lineY + 2);
+            stoneImg.setAttribute('width', '64');
+            stoneImg.setAttribute('height', '46');
+            stoneImg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+            stoneImg.setAttribute('onerror', "this.setAttribute('href', 'piedra.jpg'); this.onerror=null;");
+            rockGroup.appendChild(stoneImg);
 
+            // NÚMERO SUPER CLARO (Letra blanca con borde negro grueso de alto contraste)
             const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
             text.setAttribute('x', x);
-            text.setAttribute('y', lineY + 34);
+            text.setAttribute('y', lineY + 31);
             text.setAttribute('text-anchor', 'middle');
-            text.setAttribute('font-size', '16');
+            text.setAttribute('font-size', '21');
             text.setAttribute('font-weight', '900');
-            text.setAttribute('fill', '#0f172a');
-            text.style.cursor = isFinished ? 'default' : 'pointer';
+            text.setAttribute('fill', '#ffffff');
+            text.setAttribute('stroke', '#0f172a');
+            text.setAttribute('stroke-width', '4.5');
+            text.setAttribute('paint-order', 'stroke fill');
+            text.setAttribute('stroke-linejoin', 'round');
             text.textContent = i;
-            text.onclick = () => submitAnswer(i);
-            svg.appendChild(text);
+            rockGroup.appendChild(text);
+
+            svg.appendChild(rockGroup);
         }
 
         // 3. Arcos de Pasos
@@ -734,9 +740,12 @@
             label.setAttribute('x', midX);
             label.setAttribute('y', yArc + 12);
             label.setAttribute('text-anchor', 'middle');
-            label.setAttribute('font-size', '13');
-            label.setAttribute('font-weight', 'bold');
+            label.setAttribute('font-size', '14');
+            label.setAttribute('font-weight', '900');
             label.setAttribute('fill', '#fef08a');
+            label.setAttribute('stroke', '#000000');
+            label.setAttribute('stroke-width', '3');
+            label.setAttribute('paint-order', 'stroke fill');
             label.textContent = index + 1;
             svg.appendChild(label);
         });
