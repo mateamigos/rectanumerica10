@@ -2,33 +2,34 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>MateAventuras - El Camino de la Montaña</title>
     <style>
         :root {
             --primary-gold: #fef08a;
             --primary-green: #22c55e;
             --primary-green-dark: #15803d;
-            --accent-orange: #f97316;
-            --glass-bg: rgba(15, 23, 42, 0.55);
-            --glass-border: rgba(255, 255, 255, 0.25);
-            --radius-xl: 32px;
-            --radius-lg: 22px;
+            --glass-bg: rgba(15, 23, 42, 0.28);
+            --glass-border: rgba(255, 255, 255, 0.35);
+            --radius-xl: 28px;
+            --radius-lg: 18px;
             --radius-pill: 50px;
         }
 
         * {
             box-sizing: border-box;
             user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation; /* Evita zoom molesto al tocar rápido en el móvil */
             font-family: 'Segoe UI', Roboto, -apple-system, sans-serif;
             margin: 0;
             padding: 0;
         }
 
-        /* Fondo de la pantalla con la imagen de la montaña */
+        /* Fondo general adaptado a móviles */
         html, body {
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100dvh;
             overflow: hidden;
             background: url('fondo.jpg') center center / cover no-repeat fixed;
             display: flex;
@@ -38,21 +39,21 @@
         }
 
         /* ----------------------------------------------------
-           PANTALLA DE INICIO (MODAL BIENVENIDA)
+           PANTALLA DE INICIO (MODAL)
         ---------------------------------------------------- */
         .welcome-overlay {
-            position: absolute;
+            position: fixed;
             top: 0; left: 0;
-            width: 100%; height: 100%;
+            width: 100%; height: 100dvh;
             background: rgba(8, 15, 8, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             z-index: 100;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
-            transition: opacity 0.4s ease, visibility 0.4s ease;
+            padding: 12px;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
         }
 
         .welcome-overlay.hidden {
@@ -62,64 +63,62 @@
         }
 
         .welcome-card {
-            background: linear-gradient(145deg, rgba(30, 41, 59, 0.92), rgba(15, 23, 42, 0.96));
-            border: 3px solid rgba(255, 255, 255, 0.3);
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.92), rgba(15, 23, 42, 0.95));
+            border: 2px solid rgba(255, 255, 255, 0.35);
             border-radius: var(--radius-xl);
-            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8), 0 0 30px rgba(34, 197, 94, 0.3);
-            padding: clamp(20px, 4vh, 35px) clamp(20px, 4vw, 40px);
-            max-width: 650px;
-            width: 95%;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 25px rgba(34, 197, 94, 0.3);
+            padding: clamp(16px, 3vh, 30px) clamp(14px, 3vw, 35px);
+            max-width: 600px;
+            width: 100%;
+            max-height: 92dvh;
+            overflow-y: auto;
             text-align: center;
-            animation: cardPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: cardPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         @keyframes cardPop {
-            0% { transform: scale(0.8); opacity: 0; }
+            0% { transform: scale(0.85); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
 
         .welcome-title {
-            font-size: clamp(1.4rem, 3.8vh, 2.2rem);
+            font-size: clamp(1.2rem, 4.5vw, 2.1rem);
             color: var(--primary-gold);
-            text-shadow: 0 3px 10px rgba(0,0,0,0.8);
-            margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.9);
+            margin-bottom: 4px;
         }
 
         .welcome-subtitle {
-            font-size: clamp(0.85rem, 2vh, 1.05rem);
+            font-size: clamp(0.8rem, 3vw, 1rem);
             color: #cbd5e1;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             font-weight: 500;
         }
 
         .instructions-container {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-bottom: 25px;
+            gap: 10px;
+            margin-bottom: 20px;
             text-align: left;
         }
 
         .instruction-item {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: var(--radius-lg);
-            padding: 10px 16px;
+            padding: 8px 12px;
             display: flex;
             align-items: center;
-            gap: 14px;
-            font-size: clamp(0.85rem, 2vh, 1rem);
+            gap: 12px;
+            font-size: clamp(0.8rem, 2.8vw, 0.95rem);
             color: #f1f5f9;
         }
 
         .step-badge {
-            width: 36px;
-            height: 36px;
-            min-width: 36px;
+            width: 32px;
+            height: 32px;
+            min-width: 32px;
             border-radius: 50%;
             background: linear-gradient(135deg, #22c55e, #15803d);
             border: 2px solid #86efac;
@@ -128,8 +127,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.1rem;
-            box-shadow: 0 4px 10px rgba(34, 197, 94, 0.4);
+            font-size: 1rem;
         }
 
         .start-btn {
@@ -137,145 +135,134 @@
             color: white;
             border: 2px solid #86efac;
             border-radius: var(--radius-pill);
-            padding: 12px 36px;
-            font-size: clamp(1.1rem, 2.5vh, 1.3rem);
+            padding: 10px 28px;
+            font-size: clamp(1rem, 3.5vw, 1.25rem);
             font-weight: 800;
             cursor: pointer;
-            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.5);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .start-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 12px 30px rgba(34, 197, 94, 0.7);
+            box-shadow: 0 6px 20px rgba(34, 197, 94, 0.5);
+            width: 100%;
+            max-width: 320px;
         }
 
         /* ----------------------------------------------------
-           CONTENEDOR PRINCIPAL DEL JUEGO (DISEÑO CURVO)
+           CONTENEDOR PRINCIPAL DEL JUEGO
         ---------------------------------------------------- */
         .game-container {
             width: 98vw;
-            height: 96vh;
+            height: 96dvh;
             max-width: 1100px;
-            max-height: 96vh;
             background: var(--glass-bg);
-            border: 2px solid var(--glass-border);
+            border: 1.5px solid var(--glass-border);
             border-radius: var(--radius-xl);
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            padding: 1.2vh 2vw;
+            padding: clamp(6px, 1.5vh, 12px) clamp(8px, 1.5vw, 16px);
             position: relative;
         }
 
-        /* Header con curvas finas */
+        /* Header Adaptable */
         .header-bar {
             width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 10px;
+            gap: 6px;
         }
 
         h1 {
-            font-size: clamp(1.1rem, 2.8vh, 1.7rem);
+            font-size: clamp(1rem, 3.5vw, 1.6rem);
             color: var(--primary-gold);
-            text-shadow: 0 3px 10px rgba(0,0,0,0.9);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.9);
+            white-space: nowrap;
         }
 
         .mode-selector {
             display: flex;
-            gap: 8px;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 4px;
+            gap: 4px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 3px;
             border-radius: var(--radius-pill);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .mode-btn {
-            padding: 0.5vh 1.2vw;
+            padding: 4px 10px;
             border: none;
             border-radius: var(--radius-pill);
             background: transparent;
-            color: #d1d5db;
+            color: #f3f4f6;
             font-weight: bold;
-            font-size: clamp(0.75rem, 1.8vh, 0.95rem);
+            font-size: clamp(0.7rem, 2.2vw, 0.9rem);
             cursor: pointer;
-            transition: all 0.25s ease;
         }
 
         .mode-btn.active {
             background: linear-gradient(135deg, #22c55e, #15803d);
             color: white;
-            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.5);
         }
 
         .stats-bar {
             display: flex;
-            gap: 15px;
-            background: rgba(0,0,0,0.4);
-            padding: 0.6vh 1.2vw;
+            gap: 10px;
+            background: rgba(0,0,0,0.45);
+            padding: 4px 10px;
             border-radius: var(--radius-pill);
-            font-size: clamp(0.85rem, 2vh, 1.05rem);
+            font-size: clamp(0.75rem, 2.5vw, 0.95rem);
             font-weight: bold;
-            border: 1px solid rgba(255,255,255,0.2);
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            border: 1px solid rgba(255,255,255,0.25);
+            white-space: nowrap;
         }
 
-        /* Tarjeta Curva de Operación */
+        /* Tarjeta de Operación */
         .operation-card {
             width: 100%;
-            background: linear-gradient(135deg, rgba(67, 34, 12, 0.8), rgba(30, 15, 5, 0.85));
-            border: 2px solid #b45309;
+            background: linear-gradient(135deg, rgba(50, 25, 8, 0.8), rgba(20, 10, 3, 0.85));
+            border: 1.5px solid #b45309;
             border-radius: var(--radius-lg);
-            padding: 0.8vh 1vw;
+            padding: 8px 10px;
             text-align: center;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-            backdrop-filter: blur(6px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
         }
 
         .operation-text {
-            font-size: clamp(2.2rem, 5.2vh, 3.4rem);
+            font-size: clamp(1.8rem, 6vh, 3.2rem);
             font-weight: 900;
-            letter-spacing: 3px;
             color: #fef08a;
-            text-shadow: 0 3px 8px rgba(0,0,0,0.9);
-            line-height: 1.1;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.9);
+            line-height: 1;
         }
 
         .instruction-box {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            font-size: clamp(0.75rem, 1.8vh, 0.95rem);
+            gap: 10px;
+            font-size: clamp(0.75rem, 2.4vw, 0.95rem);
             font-weight: 700;
-            margin-top: 2px;
+            margin-top: 4px;
         }
 
-        .step-1 { color: #60a5fa; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
-        .step-2 { color: #4ade80; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
+        .step-1 { color: #60a5fa; text-shadow: 0 1px 3px rgba(0,0,0,0.9); }
+        .step-2 { color: #4ade80; text-shadow: 0 1px 3px rgba(0,0,0,0.9); }
 
-        /* Contenedor del Escenario integrado */
+        /* Contenedor del Escenario SVG */
         .number-line-container {
             width: 100%;
             flex: 1 1 auto;
-            max-height: 48vh;
+            min-height: 160px;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            background: rgba(0, 0, 0, 0.22);
+            background: rgba(255, 255, 255, 0.12);
             border-radius: var(--radius-lg);
-            border: 1px solid rgba(255,255,255,0.2);
-            box-shadow: inset 0 0 25px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.25);
             overflow: hidden;
+            margin: 6px 0;
         }
 
         svg {
@@ -286,8 +273,8 @@
 
         /* Animación para resaltar al dinosaurio */
         @keyframes dinoGlow {
-            0%, 100% { filter: drop-shadow(0 0 8px rgba(34, 197, 94, 0.9)); transform: translateY(0); }
-            50% { filter: drop-shadow(0 0 18px rgba(250, 204, 21, 1)); transform: translateY(-5px); }
+            0%, 100% { filter: drop-shadow(0 0 6px rgba(34, 197, 94, 0.9)); transform: translateY(0); }
+            50% { filter: drop-shadow(0 0 14px rgba(250, 204, 21, 1)); transform: translateY(-3px); }
         }
 
         .dino-interactive {
@@ -295,80 +282,37 @@
             animation: dinoGlow 1.5s infinite ease-in-out;
         }
 
-        /* Teclado de números curvo */
-        .answers-grid {
-            display: flex;
-            justify-content: center;
-            gap: clamp(4px, 1vw, 10px);
-            width: 100%;
-        }
-
-        .num-btn {
-            width: clamp(32px, 5.5vh, 52px);
-            height: clamp(32px, 5.5vh, 52px);
-            border-radius: 50%;
-            border: 2px solid #b45309;
-            background: linear-gradient(145deg, #78350f, #451a03);
-            font-size: clamp(0.9rem, 2.2vh, 1.3rem);
-            font-weight: 800;
-            color: #fef08a;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .num-btn:hover:not(:disabled) {
-            transform: translateY(-3px) scale(1.12);
-            border-color: #86efac;
-            background: linear-gradient(145deg, #15803d, #166534);
-            color: #ffffff;
-            box-shadow: 0 0 18px rgba(34, 197, 94, 0.8);
-        }
-
-        .num-btn:disabled {
-            opacity: 0.35;
-            cursor: not-allowed;
-        }
-
-        /* Mensajes de resultado y botones */
+        /* Footer Controls */
         .footer-controls {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
-            min-height: 5.5vh;
+            gap: 10px;
+            min-height: 48px;
             width: 100%;
         }
 
         .feedback-message {
-            font-size: clamp(1rem, 2.6vh, 1.5rem);
+            font-size: clamp(0.95rem, 3.4vw, 1.35rem);
             font-weight: 800;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.9);
+            text-shadow: 0 2px 6px rgba(0,0,0,0.9);
+            text-align: center;
         }
 
         .feedback-message.correct { color: #4ade80; }
         .feedback-message.incorrect { color: #f87171; }
 
         .next-btn {
-            padding: 0.8vh 2.2vw;
-            font-size: clamp(0.9rem, 2.2vh, 1.2rem);
+            padding: 10px 24px;
+            font-size: clamp(0.9rem, 3.2vw, 1.15rem);
             font-weight: 800;
             background: linear-gradient(135deg, #22c55e, #16a34a);
             color: white;
             border: 2px solid #86efac;
             border-radius: var(--radius-pill);
             cursor: pointer;
-            box-shadow: 0 6px 20px rgba(34, 197, 94, 0.5);
+            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.5);
             display: none;
-            transition: transform 0.2s;
-        }
-
-        .next-btn:hover {
-            transform: scale(1.06);
-            background: linear-gradient(135deg, #16a34a, #15803d);
         }
 
         canvas#confetti {
@@ -378,11 +322,22 @@
             pointer-events: none;
             z-index: 10;
         }
+
+        /* Ajustes adicionales móviles */
+        @media (max-width: 550px) {
+            .header-bar {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            h1 { font-size: 1.1rem; }
+            .stats-bar { font-size: 0.8rem; }
+            .instruction-box { flex-direction: column; gap: 2px; }
+        }
     </style>
 </head>
 <body>
 
-<!-- PANTALLA DE INICIO (MODAL) -->
+<!-- PANTALLA DE INICIO (MODAL BIENVENIDA) -->
 <div class="welcome-overlay" id="welcome-screen">
     <div class="welcome-card">
         <h2 class="welcome-title">🦖 El Camino de la Montaña</h2>
@@ -399,11 +354,11 @@
             </div>
             <div class="instruction-item">
                 <div class="step-badge">3</div>
-                <div><b>Toca al dinosaurio 🦖</b> para hacerlo dar los pasos correspondientes (<b>4 pasos</b>).</div>
+                <div><b>Toca al dinosaurio 🦖</b> para dar los pasos (<b>4 pasos</b>).</div>
             </div>
             <div class="instruction-item">
                 <div class="step-badge">4</div>
-                <div>¡Haz clic en la piedra final con el resultado correcto para ganar estrellas! ⭐</div>
+                <div>¡Toca la piedra final con la respuesta correcta para ganar estrellas! ⭐</div>
             </div>
         </div>
 
@@ -440,31 +395,26 @@
         </div>
     </div>
 
-    <!-- Escenario SVG con Sendero Curvo -->
+    <!-- Escenario SVG con Sendero y Piedras Reales -->
     <div class="number-line-container">
         <svg id="number-line-svg" viewBox="0 0 900 230" preserveAspectRatio="xMidYMid meet">
             <defs>
                 <filter id="shadow3d" x="-20%" y="-20%" width="140%" height="140%">
-                    <feDropShadow dx="0" dy="6" stdDeviation="4" flood-color="#000000" flood-opacity="0.8"/>
+                    <feDropShadow dx="0" dy="5" stdDeviation="3" flood-color="#000000" flood-opacity="0.8"/>
                 </filter>
                 
-                <linearGradient id="stoneGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stop-color="#ffffff"/>
-                    <stop offset="50%" stop-color="#9ca3af"/>
-                    <stop offset="100%" stop-color="#374151"/>
-                </linearGradient>
+                <filter id="goldGlow" x="-40%" y="-40%" width="180%" height="180%">
+                    <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#fef08a" flood-opacity="1"/>
+                    <feDropShadow dx="0" dy="0" stdDeviation="10" flood-color="#eab308" flood-opacity="0.8"/>
+                </filter>
 
-                <linearGradient id="stoneActiveGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stop-color="#fef08a"/>
-                    <stop offset="50%" stop-color="#eab308"/>
-                    <stop offset="100%" stop-color="#854d0e"/>
-                </linearGradient>
+                <filter id="greenGlow" x="-40%" y="-40%" width="180%" height="180%">
+                    <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#86efac" flood-opacity="1"/>
+                    <feDropShadow dx="0" dy="0" stdDeviation="10" flood-color="#22c55e" flood-opacity="0.8"/>
+                </filter>
             </defs>
         </svg>
     </div>
-
-    <!-- Teclado de números -->
-    <div class="answers-grid" id="answers-grid"></div>
 
     <!-- Footer Controls -->
     <div class="footer-controls">
@@ -584,7 +534,6 @@
             `1️⃣ Toca al dinosaurio 🦖 para dar ${currentOp.num2} paso(s) (${currentOp.op === '+' ? 'adelante ➡️' : 'atrás ⬅️'}).`;
 
         renderNumberLine();
-        enableAnswerButtons(true);
     }
 
     function makeDinoStep() {
@@ -606,7 +555,6 @@
     function submitAnswer(selectedNum) {
         if (isFinished) return;
         isFinished = true;
-        enableAnswerButtons(false);
 
         const feedback = document.getElementById('feedback');
 
@@ -623,11 +571,11 @@
             document.getElementById('score').textContent = score;
             document.getElementById('streak').textContent = streak;
         } else {
-            feedback.textContent = `¡Casi! Elegiste el ${selectedNum}, pero el resultado es ${currentOp.result}.`;
+            feedback.textContent = `¡Casi! Elegiste la piedra ${selectedNum}, el resultado es ${currentOp.result}.`;
             feedback.className = 'feedback-message incorrect';
             
             playErrorSound();
-            speakText("¡Casi! Inténtalo de nuevo en el siguiente nivel.");
+            speakText("¡Casi! Inténtalo de nuevo.");
             streak = 0;
             document.getElementById('streak').textContent = streak;
         }
@@ -645,14 +593,14 @@
         const svg = document.getElementById('number-line-svg');
         svg.innerHTML = svg.querySelector('defs').outerHTML; 
 
-        // 1. Sendero Curvo
+        // 1. Sendero de tierra
         const pathBg = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        const dPath = `M 30,${lineY + 5} Q 450,${lineY + 15} 870,${lineY + 5}`;
+        const dPath = `M 30,${lineY + 12} Q 450,${lineY + 22} 870,${lineY + 12}`;
         
         pathBg.setAttribute('d', dPath);
         pathBg.setAttribute('fill', 'none');
-        pathBg.setAttribute('stroke', '#78350f');
-        pathBg.setAttribute('stroke-width', '28');
+        pathBg.setAttribute('stroke', '#6b3006');
+        pathBg.setAttribute('stroke-width', '26');
         pathBg.setAttribute('stroke-linecap', 'round');
         pathBg.setAttribute('filter', 'url(#shadow3d)');
         svg.appendChild(pathBg);
@@ -661,56 +609,57 @@
         pathTexture.setAttribute('d', dPath);
         pathTexture.setAttribute('fill', 'none');
         pathTexture.setAttribute('stroke', '#d97706');
-        pathTexture.setAttribute('stroke-width', '20');
+        pathTexture.setAttribute('stroke-width', '18');
         pathTexture.setAttribute('stroke-linecap', 'round');
         svg.appendChild(pathTexture);
 
-        // 2. Rocas 3D con Números
+        // 2. Rocas con la imagen del usuario + Números en alta visibilidad
         for (let i = 0; i <= 10; i++) {
             const x = getXPos(i);
 
             const rockShadow = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
             rockShadow.setAttribute('cx', x);
-            rockShadow.setAttribute('cy', lineY + 32);
-            rockShadow.setAttribute('rx', '18');
-            rockShadow.setAttribute('ry', '8');
-            rockShadow.setAttribute('fill', 'rgba(0,0,0,0.6)');
+            rockShadow.setAttribute('cy', lineY + 34);
+            rockShadow.setAttribute('rx', '25');
+            rockShadow.setAttribute('ry', '9');
+            rockShadow.setAttribute('fill', 'rgba(0,0,0,0.65)');
             svg.appendChild(rockShadow);
 
-            const rock = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-            rock.setAttribute('cx', x);
-            rock.setAttribute('cy', lineY + 28);
-            rock.setAttribute('r', '17');
-            
-            let grad = 'url(#stoneGrad)';
-            let stroke = '#1f2937';
+            const rockGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            rockGroup.style.cursor = isFinished ? 'default' : 'pointer';
+            rockGroup.onclick = () => submitAnswer(i);
 
             if (i === currentOp.num1) {
-                grad = 'url(#stoneActiveGrad)';
-                stroke = '#b45309';
-            }
-            if (i === currentPos && jumpsMade > 0) {
-                stroke = '#22c55e';
+                rockGroup.setAttribute('filter', 'url(#goldGlow)');
+            } else if (i === currentPos && jumpsMade > 0) {
+                rockGroup.setAttribute('filter', 'url(#greenGlow)');
             }
 
-            rock.setAttribute('fill', grad);
-            rock.setAttribute('stroke', stroke);
-            rock.setAttribute('stroke-width', '2.5');
-            rock.style.cursor = isFinished ? 'default' : 'pointer';
-            rock.onclick = () => submitAnswer(i);
-            svg.appendChild(rock);
+            const stoneImg = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+            stoneImg.setAttribute('href', 'piedra.png');
+            stoneImg.setAttribute('x', x - 32);
+            stoneImg.setAttribute('y', lineY + 2);
+            stoneImg.setAttribute('width', '64');
+            stoneImg.setAttribute('height', '46');
+            stoneImg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+            stoneImg.setAttribute('onerror', "this.setAttribute('href', 'piedra.jpg'); this.onerror=null;");
+            rockGroup.appendChild(stoneImg);
 
             const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
             text.setAttribute('x', x);
-            text.setAttribute('y', lineY + 34);
+            text.setAttribute('y', lineY + 31);
             text.setAttribute('text-anchor', 'middle');
-            text.setAttribute('font-size', '16');
+            text.setAttribute('font-size', '21');
             text.setAttribute('font-weight', '900');
-            text.setAttribute('fill', '#0f172a');
-            text.style.cursor = isFinished ? 'default' : 'pointer';
+            text.setAttribute('fill', '#ffffff');
+            text.setAttribute('stroke', '#0f172a');
+            text.setAttribute('stroke-width', '4.5');
+            text.setAttribute('paint-order', 'stroke fill');
+            text.setAttribute('stroke-linejoin', 'round');
             text.textContent = i;
-            text.onclick = () => submitAnswer(i);
-            svg.appendChild(text);
+            rockGroup.appendChild(text);
+
+            svg.appendChild(rockGroup);
         }
 
         // 3. Arcos de Pasos
@@ -734,9 +683,12 @@
             label.setAttribute('x', midX);
             label.setAttribute('y', yArc + 12);
             label.setAttribute('text-anchor', 'middle');
-            label.setAttribute('font-size', '13');
-            label.setAttribute('font-weight', 'bold');
+            label.setAttribute('font-size', '14');
+            label.setAttribute('font-weight', '900');
             label.setAttribute('fill', '#fef08a');
+            label.setAttribute('stroke', '#000000');
+            label.setAttribute('stroke-width', '3');
+            label.setAttribute('paint-order', 'stroke fill');
             label.textContent = index + 1;
             svg.appendChild(label);
         });
@@ -776,23 +728,6 @@
         animGroup.appendChild(dinoContainer);
         dinoGroup.appendChild(animGroup);
         svg.appendChild(dinoGroup);
-    }
-
-    // --- TECLADO DE NÚMEROS INFERIOR ---
-    function createAnswerButtons() {
-        const grid = document.getElementById('answers-grid');
-        grid.innerHTML = '';
-        for (let i = 0; i <= 10; i++) {
-            const btn = document.createElement('button');
-            btn.className = 'num-btn';
-            btn.textContent = i;
-            btn.onclick = () => submitAnswer(i);
-            grid.appendChild(btn);
-        }
-    }
-
-    function enableAnswerButtons(enable) {
-        document.querySelectorAll('.num-btn').forEach(btn => btn.disabled = !enable);
     }
 
     // --- EFECTO CONFETI ---
@@ -842,7 +777,6 @@
 
     // INICIALIZACIÓN
     window.onload = () => {
-        createAnswerButtons();
         generateNewProblem();
     };
 </script>
